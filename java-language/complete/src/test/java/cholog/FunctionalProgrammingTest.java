@@ -135,12 +135,12 @@ public class FunctionalProgrammingTest {
             final var brown = new User("Brown", 78);
             final var neo = new User("Neo", 90);
             final var brie = new User("Brie", 12);
-F
+
             final var users = Stream.of(brown, neo, brie)
                     .sorted(Comparator.comparingInt(User::age))
                     .peek(user -> System.out.println(user.name() + ": " + user.age()))
                     .toList();
-E
+
             assertAll(
                     () -> assertThat(users).last().isSameAs(neo),
                     () -> assertThat(users).first().isSameAs(brie)

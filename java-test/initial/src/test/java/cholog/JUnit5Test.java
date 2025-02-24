@@ -1,5 +1,8 @@
 package cholog;
 
+import java.util.Objects;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -39,6 +43,7 @@ public class JUnit5Test {
          * 따라서 해당 메서드는 테스트 메서드가 아니기 때문에, 테스트 메서드로서의 역할을 수행하지 않습니다.
          * `@Test` 애노테이션을 사용하면 해당 메서드는 테스트 메서드가 되며, 테스트 메서드로서의 역할을 수행합니다.
          */
+        @Test
         void Test_애노테이션을_붙여_테스트_메서드로_만든다() {
             // TODO: `@Test` 애노테이션을 활용하여 테스트가 실행되게 해주세요.
         }
@@ -48,9 +53,8 @@ public class JUnit5Test {
          * 따라서 해당 메서드는 테스트 메서드가 아니기 때문에, 테스트 메서드로서의 역할을 수행하지 않습니다.
          */
         @Test
-        int return_타입이_void가_아니라면_테스트_메서드가_아니다() {
+        void return_타입이_void가_아니라면_테스트_메서드가_아니다() {
             // TODO: return 타입을 변경하여 해당 테스트가 실행되게 해주세요.
-            return 0;
         }
     }
 
@@ -74,7 +78,8 @@ public class JUnit5Test {
          * ps. 다만 학습 테스트에서는 의미 전달을 위해 한글 메서드명을 사용합니다.
          */
         @Test
-        void DisplayName_애노테이션을_붙여_경고를_제거한다() {
+        @DisplayName("_애노테이션을_붙여_경고를_제거한다")
+        void DisplayName() {
             // TODO: `@DisplayName` 애노테이션을 활용하여 `Non-ASCII characters` 경고를 제거해주세요.
         }
     }
@@ -84,6 +89,7 @@ public class JUnit5Test {
      * 중첩 클래스는 클래스 내부에 선언된 클래스를 의미합니다.
      * 중첩으로 표현하는 이유는 클래스의 의미를 명확하게 하기 위함입니다.
      */
+    @Nested
     @DisplayName("@Nested 애노테이션 학습 테스트")
     class NestedAnnotationTest {
         /**
@@ -114,21 +120,10 @@ public class JUnit5Test {
          * `@Disabled` 애노테이션을 사용하면 해당 메서드는 테스트 메서드가 아니기 때문에, 테스트 메서드로서의 역할을 수행하지 않습니다.
          */
         @Test
+        @Disabled
         @DisplayName("@Disabled 애노테이션을 붙여줘야 테스트 메서드로서의 역할을 수행하지 않는다")
         void Disabled_애노테이션을_붙여줘야_테스트_메서드로서의_역할을_수행하지_않는다() {
             // TODO: `@Disabled` 애노테이션을 활용하여 테스트가 실행되지 않게 해주세요.
-            throw new RuntimeException("항상 실패한다.");
-        }
-
-        /**
-         * `@Disabled` 애노테이션은 클래스에도 적용 가능하며, 클래스에 `@Disabled` 애노테이션을 붙이면 해당 클래스의 모든 테스트가 비활성화됩니다.
-         * 따라서 해당 클래스의 모든 테스트가 비활성화되기 때문에, 테스트 메서드로서의 역할을 수행하지 않습니다.
-         */
-
-        // TODO: 아래 항상 실패하는 테스트 메서드들을 건들이지 않고 `@Disabled` 애노테이션을 활용하여 테스트가 실행되지 않게 해주세요.
-        @Test
-        @DisplayName("항상 실패하는 테스트 1")
-        void 항상_실패하는_테스트_1() {
             throw new RuntimeException("항상 실패한다.");
         }
 
@@ -144,7 +139,21 @@ public class JUnit5Test {
             throw new RuntimeException("항상 실패한다.");
         }
 
+        /**
+         * `@Disabled` 애노테이션은 클래스에도 적용 가능하며, 클래스에 `@Disabled` 애노테이션을 붙이면 해당 클래스의 모든 테스트가 비활성화됩니다.
+         * 따라서 해당 클래스의 모든 테스트가 비활성화되기 때문에, 테스트 메서드로서의 역할을 수행하지 않습니다.
+         */
+
+        // TODO: 아래 항상 실패하는 테스트 메서드들을 건들이지 않고 `@Disabled` 애노테이션을 활용하여 테스트가 실행되지 않게 해주세요.
         @Test
+        @Disabled
+        @DisplayName("항상 실패하는 테스트 1")
+        void 항상_실패하는_테스트_1() {
+            throw new RuntimeException("항상 실패한다.");
+        }
+
+        @Test
+        @Disabled
         @DisplayName("항상 실패하는 테스트 3")
         void 항상_실패하는_테스트_4() {
             throw new RuntimeException("항상 실패한다.");
@@ -178,9 +187,10 @@ public class JUnit5Test {
             final var expected = 3;
 
             // TODO: 아래 코드를 assertEquals 메서드로 대체해주세요. 제대로 동작하는지 확인하기 위해 expected와 actual의 값을 바꿔보세요.
-            if (expected != actual) {
+            /*if (expected != actual) {
                 throw new RuntimeException("expected: <" + expected + "> but was: <" + actual + ">");
-            }
+            }*/
+            assertEquals(expected,actual);
         }
 
         /**
@@ -198,6 +208,23 @@ public class JUnit5Test {
 
                 public LocalObject(int value) {
                     this.value = value;
+                }
+
+                @Override
+                public boolean equals(Object o) {
+                    if (this == o) {
+                        return true;
+                    }
+                    if (o == null || getClass() != o.getClass()) {
+                        return false;
+                    }
+                    LocalObject that = (LocalObject) o;
+                    return value == that.value;
+                }
+
+                @Override
+                public int hashCode() {
+                    return Objects.hashCode(value);
                 }
             }
 
@@ -224,9 +251,11 @@ public class JUnit5Test {
 
             // TODO: 아래 코드를 assertEquals(expected, actual, message) 형태로 변경하여 "두 값이 일치하지 않습니다." 라는 메시지를 출력해주세요.
             // TODO: 제대로 동작하는지 확인하기 위해 expected와 actual의 값을 바꿔보세요.
-            if (expected != actual) {
+            /*if (expected != actual) {
                 throw new RuntimeException("두 값이 일치하지 않습니다. ==> expected: <" + expected + "> but was: <" + actual + ">");
-            }
+            }*/
+
+            assertEquals(expected,actual,"두 값이 일치하지 않습니다. ==> expected: <" + expected + "> but was: <" + actual + ">");
         }
 
         /**
@@ -240,12 +269,13 @@ public class JUnit5Test {
             final var b = 2;
             final var actual = a + b;
 
-            final var unexpected = 0;
+            final var unexpected = 2;
 
             // TODO: 아래 코드를 assertNotEquals 메서드로 대체해주세요. 제대로 동작하는지 확인하기 위해 expected와 actual의 값을 바꿔보세요.
-            if (unexpected == actual) {
+            /*if (unexpected == actual) {
                 throw new RuntimeException("expected: not equal but was: <" + unexpected + ">");
-            }
+            }*/
+            assertNotEquals(unexpected,actual);
         }
     }
 
@@ -273,9 +303,10 @@ public class JUnit5Test {
             final var expected = object;
 
             // TODO: 아래 코드를 assertSame 메서드로 대체해주세요. 제대로 동작하는지 확인하기 위해 expected와 actual의 값을 바꿔보세요.
-            if (actual == actual) {
+            /*if (actual == actual) {
                 throw new RuntimeException("expected: not equal but was: <" + expected + ">");
-            }
+            }*/
+            assertSame(expected,actual);
         }
     }
 
@@ -294,6 +325,7 @@ public class JUnit5Test {
         @DisplayName("assertThrows 메서드로 특정 예외가 발생하는지 비교한다")
         void assertThrows_메서드로_특정_예외가_발생하는지_비교한다() {
             // TODO: try-catch문을 사용하지 않고 assertThrows 메서드를 사용하여 테스트가 성공하도록 해주세요.
+/*
             try {
                 causeException();
             } catch (Exception e) {
@@ -301,6 +333,8 @@ public class JUnit5Test {
             }
 
             throw new RuntimeException("예외가 발생하지 않았습니다.");
+*/
+            Assertions.assertThrows(RuntimeException.class,() -> causeException());
         }
 
         /**
@@ -311,7 +345,7 @@ public class JUnit5Test {
         @DisplayName("assertThrows 메서드로 특정 예외가 발생하는지 비교하며, 특정 예외가 발생하지 않는다면 테스트가 실패한다")
         void assertThrows_메서드로_특정_예외가_발생하는지_비교하며_특정_예외가_발생하지_않는다면_테스트가_실패한다() {
             // TODO: `causeException` 메서드에서 발생하는 예외 타입을 확인 후 `expectedType`를 변경하여 테스트가 성공하도록 해주세요.
-            assertThrows(IllegalArgumentException.class, this::causeException);
+            assertThrows(IllegalCallerException.class, this::causeException);
 
 
             /* ----- 아래는 추가로 학습할 분만 보세요! -----
