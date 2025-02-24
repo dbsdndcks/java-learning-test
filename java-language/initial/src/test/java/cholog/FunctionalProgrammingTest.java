@@ -1,6 +1,9 @@
 package cholog;
 
+import com.sun.jdi.Value;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,11 +28,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * 함수형 프로그래밍이란 관심사를 분리하여 프로그래밍하는 방법으로 작업을 어떻게 수행할 것인지, 즉 로직에 집중하는 것이 아니라 무엇을 할 것인지에 집중합니다.
- * 구체적인 작업 방식은 라이브러리가 알아서 처리하고, 사용자는 라이브러리가 제공하는 인터페이스를 구현하는 것만으로도 원하는 작업을 수행할 수 있습니다.
+ * 함수형 프로그래밍이란 관심사를 분리하여 프로그래밍하는 방법으로 작업을 어떻게 수행할 것인지, 즉 로직에 집중하는 것이 아니라 무엇을 할 것인지에 집중합니다. 구체적인 작업 방식은 라이브러리가 알아서 처리하고,
+ * 사용자는 라이브러리가 제공하는 인터페이스를 구현하는 것만으로도 원하는 작업을 수행할 수 있습니다.
  * <p>
- * 참고: <a href="https://en.wikipedia.org/wiki/Functional_programming">함수형 프로그래밍</a>
- * 참고: <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">관심사 분리</a>
+ * 참고: <a href="https://en.wikipedia.org/wiki/Functional_programming">함수형 프로그래밍</a> 참고: <a
+ * href="https://en.wikipedia.org/wiki/Separation_of_concerns">관심사 분리</a>
  */
 public class FunctionalProgrammingTest {
     /**
@@ -41,7 +44,8 @@ public class FunctionalProgrammingTest {
         /**
          * 익명 클래스는 인터페이스를 구현하는 클래스를 생성할 때 사용합니다.
          * <p>
-         * 참고: <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">Anonymous Classes</a>
+         * 참고: <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">Anonymous
+         * Classes</a>
          */
         @Test
         @DisplayName("익명 클래스")
@@ -60,8 +64,8 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * 익명 클래스는 언어에서 미리 만들어둔 인터페이스만 구현하는 것이 아닌 사용자가 만든 인터페이스도 구현할 수 있습니다.
-         * 꼭 메서드가 하나일 필요는 없습니다. 여러 개의 메서드를 구현할 수 있습니다.
+         * 익명 클래스는 언어에서 미리 만들어둔 인터페이스만 구현하는 것이 아닌 사용자가 만든 인터페이스도 구현할 수 있습니다. 꼭 메서드가 하나일 필요는 없습니다. 여러 개의 메서드를 구현할 수
+         * 있습니다.
          */
         @Test
         @DisplayName("사용자가 만든 인터페이스를 구현하는 익명 클래스")
@@ -88,12 +92,11 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * 함수형 인터페이스는 하나의 추상 메서드만을 가지는 인터페이스입니다.
-         * 함수형 인터페이스는 람다로 구현할 수 있습니다.
-         * 람다는 익명 클래스를 더 간결하게 표현할 수 있는 방법으로, 자바8부터 함수형 프로그래밍을 지원하기 위해 추가된 기능입니다.
-         * 하지만 람다는 익명 클래스와 달리 여러 개의 메서드를 구현할 수 없습니다.
+         * 함수형 인터페이스는 하나의 추상 메서드만을 가지는 인터페이스입니다. 함수형 인터페이스는 람다로 구현할 수 있습니다. 람다는 익명 클래스를 더 간결하게 표현할 수 있는 방법으로, 자바8부터 함수형
+         * 프로그래밍을 지원하기 위해 추가된 기능입니다. 하지만 람다는 익명 클래스와 달리 여러 개의 메서드를 구현할 수 없습니다.
          * <p>
-         * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html">FunctionalInterface</a>
+         * 참고: <a
+         * href="https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html">FunctionalInterface</a>
          */
         @Test
         @DisplayName("함수형 인터페이스")
@@ -118,17 +121,15 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * Collections.sort() 메서드는 Comparator 인터페이스를 구현하는 클래스를 인자로 받습니다.
-         * Comparator 인터페이스는 두 개의 인자를 받아서 비교하는 compare() 메서드를 가지고 있습니다.
-         * 위에서 학습한 내용을 바탕으로 `User` 클래스의 나이를 기준으로 정렬해보세요.
+         * Collections.sort() 메서드는 Comparator 인터페이스를 구현하는 클래스를 인자로 받습니다. Comparator 인터페이스는 두 개의 인자를 받아서 비교하는 compare()
+         * 메서드를 가지고 있습니다. 위에서 학습한 내용을 바탕으로 `User` 클래스의 나이를 기준으로 정렬해보세요.
          * <p>
-         * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a>
-         * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#sort-java.util.List-java.util.Comparator-">Collections.sort()</a>
+         * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a> 참고: <a
+         * href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#sort-java.util.List-java.util.Comparator-">Collections.sort()</a>
          */
         @Test
         @DisplayName("User의 나이를 기준으로 정렬한다")
         void User의_나이를_기준으로_정렬한다() {
-
 
             record User(String name, int age) {
 
@@ -158,9 +159,8 @@ public class FunctionalProgrammingTest {
                 }
             };
 
-
             List<User> sortedList = users.stream().
-                    sorted((p1,p2) -> comparator.compare(p1,p2))
+                    sorted((p1, p2) -> comparator.compare(p1, p2))
                     .toList();
 
             for (final var user : sortedList) {
@@ -177,15 +177,16 @@ public class FunctionalProgrammingTest {
     /**
      * 함수형 프로그래밍을 지원하는 자바의 라이브러리를 학습합니다.
      * <p>
-     * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">java.util.function</a>
-     * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">java.util.stream</a>
+     * 참고: <a
+     * href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">java.util.function</a>
+     * 참고: <a
+     * href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">java.util.stream</a>
      */
     @Nested
     @DisplayName("라이브러리 학습 테스트")
     class LibraryTest {
         /**
-         * Function은 인자를 받아서 값을 반환하는 함수형 인터페이스입니다.
-         * 입력값을 받아서 출력값을 반환하는 함수를 표현할 때 사용합니다.
+         * Function은 인자를 받아서 값을 반환하는 함수형 인터페이스입니다. 입력값을 받아서 출력값을 반환하는 함수를 표현할 때 사용합니다.
          * <p>
          * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a>
          */
@@ -197,8 +198,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * Consumer는 인자를 받아서 소비하는 함수형 인터페이스입니다.
-         * 입력값을 받아서 출력값을 반환하지 않고, 입력값을 소비하는 함수를 표현할 때 사용합니다.
+         * Consumer는 인자를 받아서 소비하는 함수형 인터페이스입니다. 입력값을 받아서 출력값을 반환하지 않고, 입력값을 소비하는 함수를 표현할 때 사용합니다.
          * <p>
          * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html">Consumer</a>
          */
@@ -210,8 +210,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * Supplier는 인자를 받지 않고 값을 반환하는 함수형 인터페이스입니다.
-         * 입력값 없이 출력값만 있는 함수를 표현할 때 사용합니다.
+         * Supplier는 인자를 받지 않고 값을 반환하는 함수형 인터페이스입니다. 입력값 없이 출력값만 있는 함수를 표현할 때 사용합니다.
          * <p>
          * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html">Supplier</a>
          */
@@ -223,8 +222,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * Predicate는 인자를 받아서 boolean 값을 반환하는 함수형 인터페이스입니다.
-         * 입력값을 받아서 boolean 값을 반환하는 함수를 표현할 때 사용합니다.
+         * Predicate는 인자를 받아서 boolean 값을 반환하는 함수형 인터페이스입니다. 입력값을 받아서 boolean 값을 반환하는 함수를 표현할 때 사용합니다.
          * <p>
          * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html">Predicate</a>
          */
@@ -248,8 +246,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * 기존 함수의 중복을 람다를 활용해 중복을 제거해봅니다.
-         * 과정을 통해 람다 사용법을 학습합니다.
+         * 기존 함수의 중복을 람다를 활용해 중복을 제거해봅니다. 과정을 통해 람다 사용법을 학습합니다.
          */
         @Test
         @DisplayName("기존 함수의 중복을 람다를 활용해 중복을 제거한다")
@@ -264,7 +261,6 @@ public class FunctionalProgrammingTest {
                 static int sumAllEven(final List<Integer> numbers) {
                     return sum(numbers, (a) -> a % 2 == 0);
                 }
-
 
 
                 // TODO: 람다를 활용하여 sum 메서드를 통해 중복을 제거하세요.
@@ -309,30 +305,27 @@ public class FunctionalProgrammingTest {
     }
 
     /**
-     * Stream은 자바의 컬렉션을 함수형 프로그래밍으로 다루기 위한 라이브러리입니다.
-     * Stream API는 크게 생성, 가공, 소비의 세 가지 단계로 이루어져 있습니다.
+     * Stream은 자바의 컬렉션을 함수형 프로그래밍으로 다루기 위한 라이브러리입니다. Stream API는 크게 생성, 가공, 소비의 세 가지 단계로 이루어져 있습니다.
      * <p>
-     * 생성: 컬렉션을 스트림으로 변환합니다. 생성 단계에서 컬렉션을 스트림으로 변환하고, 가공 단계에서 스트림을 가공합니다.
-     * 가공: 스트림을 가공합니다. 가공 단계에서는 스트림을 가공하는 메서드를 호출하고, 소비 단계에서는 가공된 스트림을 소비합니다.
-     * 소비: 스트림을 소비합니다. 소비 단계에서는 가공된 스트림을 소비합니다.
+     * 생성: 컬렉션을 스트림으로 변환합니다. 생성 단계에서 컬렉션을 스트림으로 변환하고, 가공 단계에서 스트림을 가공합니다. 가공: 스트림을 가공합니다. 가공 단계에서는 스트림을 가공하는 메서드를 호출하고,
+     * 소비 단계에서는 가공된 스트림을 소비합니다. 소비: 스트림을 소비합니다. 소비 단계에서는 가공된 스트림을 소비합니다.
      * <p>
      * 위에서 학습한 기능들을 생성, 가공, 소비 단계에서 사용할 수 있습니다.
      * <p>
-     * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream</a>
-     * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">java.util.stream</a>
+     * 참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream</a> 참고: <a
+     * href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">java.util.stream</a>
      */
     @Nested
     @DisplayName("Stream 학습 테스트")
     class StreamTest {
         /**
-         * 스트림을 이용하면 선언형으로 컬렉션을 가공할 수 있습니다.
-         * 기존 반복문과 조건문으로 컬렉션을 가공하는 방식은 명령형 프로그래밍이라고 하며, 스트림을 이용하여 선언형으로 컬렉션을 가공하는 방식은 선언형 프로그래밍이라고 합니다.
-         * 선언형이란 어떻게 할 것인지를 명시하는 것이 아니라 무엇을 할 것인지를 명시하는 것입니다.
+         * 스트림을 이용하면 선언형으로 컬렉션을 가공할 수 있습니다. 기존 반복문과 조건문으로 컬렉션을 가공하는 방식은 명령형 프로그래밍이라고 하며, 스트림을 이용하여 선언형으로 컬렉션을 가공하는 방식은
+         * 선언형 프로그래밍이라고 합니다. 선언형이란 어떻게 할 것인지를 명시하는 것이 아니라 무엇을 할 것인지를 명시하는 것입니다.
          * <p>
          * 유저들 중 성인인 유저들의 이름을 나이순으로 정렬하여 출력하는 기능을 보며 기존 명령형으로 작성되어 있는 코드를 선언형으로 변경하는 예시를 살펴봅니다.
          * <p>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Declarative_programming">선언형 프로그래밍</a>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Imperative_programming">명령형 프로그래밍</a>
+         * 참고: <a href="https://en.wikipedia.org/wiki/Declarative_programming">선언형 프로그래밍</a> 참고: <a
+         * href="https://en.wikipedia.org/wiki/Imperative_programming">명령형 프로그래밍</a>
          */
         @Test
         @DisplayName("성인인 유저들의 이름을 나이순으로 정렬하여 출력한다")
@@ -389,11 +382,11 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * 선언형 프로그래밍은 어떻게 할 것인지를 명시하는 명령형 프로그래밍과는 다르게 어떻게 할 것인지를 명시하지 않습니다.
-         * 어떻게 할 것인지에 대한 구체적인 작업은 라이브러리가 결정하고, 개발자는 무엇을 수행할 것인지에 집중할 수 있기 때문에 가독성이 뛰어나고 유지보수가 쉽습니다.
+         * 선언형 프로그래밍은 어떻게 할 것인지를 명시하는 명령형 프로그래밍과는 다르게 어떻게 할 것인지를 명시하지 않습니다. 어떻게 할 것인지에 대한 구체적인 작업은 라이브러리가 결정하고, 개발자는 무엇을
+         * 수행할 것인지에 집중할 수 있기 때문에 가독성이 뛰어나고 유지보수가 쉽습니다.
          * <p>
-         * 기존 명령형 프로그래밍으로 구현되어 있는 코드를 선언형으로 변경하며 선언형 프로그래밍을 연습해봅니다.
-         * 크루들 중 이름이 김으로 시작하고 나이가 25세 이상 30세 미만이며 닉네임이 2글자인 크루들 중 가장 나이가 많은 크루를 찾아서 출력하는 기능을 보며 기존 명령형으로 작성되어 있는 코드를 선언형으로 변경하는 예시를 살펴봅니다.
+         * 기존 명령형 프로그래밍으로 구현되어 있는 코드를 선언형으로 변경하며 선언형 프로그래밍을 연습해봅니다. 크루들 중 이름이 김으로 시작하고 나이가 25세 이상 30세 미만이며 닉네임이 2글자인 크루들
+         * 중 가장 나이가 많은 크루를 찾아서 출력하는 기능을 보며 기존 명령형으로 작성되어 있는 코드를 선언형으로 변경하는 예시를 살펴봅니다.
          */
         @Test
         @DisplayName("명령형으로 작성된 코드를 선언형으로 변경한다")
@@ -443,8 +436,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * 전쟁과 평화 내용 중 문자 길이가 12보다 큰 경우의 수를 구하는 기능을 구현해봅니다.
-         * 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
+         * 전쟁과 평화 내용 중 문자 길이가 12보다 큰 경우의 수를 구하는 기능을 구현해봅니다. 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
          */
         @Test
         @DisplayName("Stream API를 활용하여 전쟁과 평화 내용 중 문자 길이가 12보다 큰 경우의 수를 구한다")
@@ -462,8 +454,7 @@ public class FunctionalProgrammingTest {
 
             var count = Arrays.stream(contents.split("\\P{L}+"))
                     .filter((word) -> word.length() > 12)
-                            .count();
-
+                    .count();
 
             // -----------------------------------------------------------------
 
@@ -471,8 +462,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * for문을 활용하여 콜론을 추가하는 기능을 Stream API를 활용하여 구현해봅니다.
-         * 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
+         * for문을 활용하여 콜론을 추가하는 기능을 Stream API를 활용하여 구현해봅니다. 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
          */
         @Test
         @DisplayName("for문을 활용하여 콜론을 추가하는 기능을 Stream API를 활용하여 구현한다")
@@ -494,7 +484,6 @@ public class FunctionalProgrammingTest {
                     .map(String::valueOf)
                     .collect(Collectors.joining(":")));
 
-
             final var result = stringBuilder.toString();
 
             // -----------------------------------------------------------------
@@ -503,9 +492,8 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * for문을 활용하여 값을 필터링하고 가공하여 값을 구하는 기능을 Stream API를 활용하여 구현해봅니다.
-         * 주어진 값 중 2보다 크고, 5보다 작거나 같은 수를 찾아서 2를 곱합니다. 그 값이 7보다 큰 모든 수의 합을 구하는 기능을 구현해주세요.
-         * 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
+         * for문을 활용하여 값을 필터링하고 가공하여 값을 구하는 기능을 Stream API를 활용하여 구현해봅니다. 주어진 값 중 2보다 크고, 5보다 작거나 같은 수를 찾아서 2를 곱합니다. 그 값이
+         * 7보다 큰 모든 수의 합을 구하는 기능을 구현해주세요. 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
          */
         @Test
         @DisplayName("for문을 활용하여 값을 필터링하고 가공하여 값을 구하는 기능을 Stream API를 활용하여 구현한다")
@@ -515,7 +503,8 @@ public class FunctionalProgrammingTest {
 
             // TODO: 아래 코드를 Stream API를 활용하여 구현하세요.
             var result = 0;
-            for (final Integer number : numbers) {
+           /*
+           for (final Integer number : numbers) {
                 if (2 >= number) {
                     continue;
                 }
@@ -525,9 +514,15 @@ public class FunctionalProgrammingTest {
                 if (number * 2 < 7) {
                     continue;
                 }
-
                 result += number * 2;
             }
+            */
+            result = numbers.stream()
+                    .filter((number) -> number > 2)
+                    .filter((number) -> number <= 5)
+                    .filter((number) -> number * 2 > 7)
+                    .mapToInt((number) -> number * 2)
+                    .sum();
 
             // -----------------------------------------------------------------
 
@@ -535,15 +530,12 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * Stream API를 활용하여 전쟁과 평화 내용 중 아래 조건에 해당하는 단어를 찾아서 추출하는 기능을 구현해봅니다.
-         * 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
+         * Stream API를 활용하여 전쟁과 평화 내용 중 아래 조건에 해당하는 단어를 찾아서 추출하는 기능을 구현해봅니다. 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
          * <p>
          * ## 조건
          * - 단어의 길이가 12자를 초과하는 단어를 추출한다.
-         * - 12자가 넘는 단어 중 길이가 짧은 순서대로 100개의 단어를 추출한다.
-         * -- 단어 중복을 허용하지 않는다. 즉, 서로 다른 단어 100개를 추출한다.
-         * - 추출한 단어의 두번째 문자가 대문자라면 단어를 제외한다.
-         * -- ex) abc 허용 | abC 허용 | aBc 제외 | aBC 제외 | AbC 허용
+         * - 12자가 넘는 단어 중 길이가 짧은 순서대로 100개의 단어를 추출한다. -- 단어 중복을 허용하지 않는다. 즉, 서로 다른 단어 100개를 추출한다.
+         * - 추출한 단어의 두번째 문자가 대문자라면 단어를 제외한다. -- ex) abc 허용 | abC 허용 | aBc 제외 | aBC 제외 | AbC 허용
          * - 추출한 단어를 소문자로 변경하여 알파벳 순서대로 앞에 있는 10개의 단어를 추출한다.
          */
         @Test
@@ -552,8 +544,20 @@ public class FunctionalProgrammingTest {
             final var contents = Files.readString(Paths.get("src/test/resources/war-and-peace.txt"));
 
             // TODO: 위 조건에 맞는 10개의 단어를 추출하세요.
-            // final var words = contents.split("\\P{L}+");
-            final var results = new ArrayList<String>();
+            final var words = contents.split("\\P{L}+");
+            final List<String> results;
+
+            results =
+                    Arrays.stream(words)
+                            .filter((word) -> word.length() > 12)
+                            .sorted(Comparator.comparing(String::length))
+                            .distinct()
+                            .limit(100)
+                            .filter((word) -> Character.isLowerCase(word.charAt(1)))
+                            .map(String::toLowerCase)
+                            .sorted()
+                            .limit(10)
+                            .collect(Collectors.toList());
 
             // -----------------------------------------------------------------
             assertThat(results).containsExactly(
@@ -571,8 +575,7 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * Stream API를 활용하여 전쟁과 평화 내용 중 가장 많이 등장하는 단어의 수를 찾는 기능을 구현해봅니다.
-         * 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
+         * Stream API를 활용하여 전쟁과 평화 내용 중 가장 많이 등장하는 단어의 수를 찾는 기능을 구현해봅니다. 가능하면 세미콜론을 한 번만 사용하여 구현해보세요.
          */
         @Test
         @DisplayName("전쟁과 평화 내용 중 가장 많이 등장하는 단어의 수를 찾는다")
@@ -580,20 +583,20 @@ public class FunctionalProgrammingTest {
             final var contents = Files.readString(Paths.get("src/test/resources/war-and-peace.txt"));
 
             // TODO: 가장 많이 등장하는 단어의 수를 찾으세요.
-            // final var words = contents.split("\\P{L}+");
-            final var result = 0L;
-
+            final var words = contents.split("\\P{L}+");
+            final var result = Arrays.stream(words)
+                    .collect(Collectors.groupingBy(word -> word, Collectors.counting())) // 각 단어의 빈도 수 세기
+                    .values().stream() // 빈도수만 추출
+                    .max(Long::compare) // 가장 큰 빈도 수 찾기
+                    .orElse(0L);
             // -----------------------------------------------------------------
             assertThat(result).isEqualTo(31_949L);
         }
 
         /**
-         * ----- 아래는 심심하신 분만 보세요! -----
-         * 피보나치 수열이란 앞의 두 수를 더하여 다음 수를 만들어가는 수열입니다.
-         * 피보나치 수는 0과 1로 시작하고, 0번째 피보나치 수는 0이고, 1번째 피보나치 수는 1입니다. 그리고 다음 2번째 부터는 바로 앞 두 피보나치 수의 합이 됩니다.
-         * 0과 1로 시작하는 피보나치 수열은 다음과 같습니다.
-         * 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 ...
-         * n이 주어졌을 때, n번째 피보나치 수를 구하는 함수를 작성하며 함수형 프로그래밍을 연습해봅니다.
+         * ----- 아래는 심심하신 분만 보세요! ----- 피보나치 수열이란 앞의 두 수를 더하여 다음 수를 만들어가는 수열입니다. 피보나치 수는 0과 1로 시작하고, 0번째 피보나치 수는 0이고,
+         * 1번째 피보나치 수는 1입니다. 그리고 다음 2번째 부터는 바로 앞 두 피보나치 수의 합이 됩니다. 0과 1로 시작하는 피보나치 수열은 다음과 같습니다. 0, 1, 1, 2, 3, 5, 8,
+         * 13, 21, 34 ... n이 주어졌을 때, n번째 피보나치 수를 구하는 함수를 작성하며 함수형 프로그래밍을 연습해봅니다.
          * <p>
          * 참고: <a href="https://en.wikipedia.org/wiki/Fibonacci_number">피보나치 수열</a>
          */
@@ -634,20 +637,19 @@ public class FunctionalProgrammingTest {
         }
 
         /**
-         * ----- 아래는 추가로 학습할 분만 보세요! -----
-         * 함수 내부에서 외부의 상태를 변경하는 것을 사이드 이펙트라고 하며 사이드 이펙트가 발생하면 병렬 처리를 할 수 없습니다.
-         * 외부의 상태를 변경하는 것은 스레드 간에 공유되는 메모리를 변경하는 것을 의미하며 스레드 간에 공유되는 메모리를 변경하면 동시성 문제가 발생할 수 있습니다.
-         * 즉, 동시성 문제는 스레드 간에 공유되는 메모리를 변경하는 것을 의미합니다.
+         * ----- 아래는 추가로 학습할 분만 보세요! ----- 함수 내부에서 외부의 상태를 변경하는 것을 사이드 이펙트라고 하며 사이드 이펙트가 발생하면 병렬 처리를 할 수 없습니다. 외부의 상태를
+         * 변경하는 것은 스레드 간에 공유되는 메모리를 변경하는 것을 의미하며 스레드 간에 공유되는 메모리를 변경하면 동시성 문제가 발생할 수 있습니다. 즉, 동시성 문제는 스레드 간에 공유되는 메모리를
+         * 변경하는 것을 의미합니다.
          * <p>
-         * 사이드 이펙트가 없는 함수는 외부의 상태를 변경하지 않는 함수를 의미하며 같은 인자를 받으면 항상 같은 값을 반환하는데 이러한 함수를 순수 함수라고 합니다.
-         * 선언형 프로그래밍의 경우 순수 함수를 사용하여 병렬 처리를 할 수 있습니다.
+         * 사이드 이펙트가 없는 함수는 외부의 상태를 변경하지 않는 함수를 의미하며 같은 인자를 받으면 항상 같은 값을 반환하는데 이러한 함수를 순수 함수라고 합니다. 선언형 프로그래밍의 경우 순수 함수를
+         * 사용하여 병렬 처리를 할 수 있습니다.
          * <p>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">사이드 이펙트</a>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Parallel_computing">병렬 처리</a>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Concurrency_(computer_science)">동시성</a>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Thread_(computing)">스레드</a>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Shared_memory">공유 메모리</a>
-         * 참고: <a href="https://en.wikipedia.org/wiki/Pure_function">순수 함수</a>
+         * 참고: <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">사이드 이펙트</a> 참고: <a
+         * href="https://en.wikipedia.org/wiki/Parallel_computing">병렬 처리</a> 참고: <a
+         * href="https://en.wikipedia.org/wiki/Concurrency_(computer_science)">동시성</a> 참고: <a
+         * href="https://en.wikipedia.org/wiki/Thread_(computing)">스레드</a> 참고: <a
+         * href="https://en.wikipedia.org/wiki/Shared_memory">공유 메모리</a> 참고: <a
+         * href="https://en.wikipedia.org/wiki/Pure_function">순수 함수</a>
          */
         @Test
         @DisplayName("사이드 이펙트가 없는 순수 함수의 병렬 처리")
@@ -685,7 +687,9 @@ public class FunctionalProgrammingTest {
             }
             latch.await();
             final var imperativeEnd = System.currentTimeMillis();
-            System.out.println("명령형으로 " + imperativeTotalElapsedMillis.get() + "ms 처리 시 " + (imperativeEnd - imperativeStart) + "ms 걸렸습니다.");
+            System.out.println(
+                    "명령형으로 " + imperativeTotalElapsedMillis.get() + "ms 처리 시 " + (imperativeEnd - imperativeStart)
+                            + "ms 걸렸습니다.");
 
             // -----------------------------------------------------------------
 
@@ -695,7 +699,9 @@ public class FunctionalProgrammingTest {
                     .map(Timer::wait)
                     .reduce(0L, Long::sum);
             final var declarativeEnd = System.currentTimeMillis();
-            System.out.println("선언형으로 " + declarativeTotalElapsedMillis + "ms 처리 시 " + (declarativeEnd - declarativeStart) + "ms 걸렸습니다.");
+            System.out.println(
+                    "선언형으로 " + declarativeTotalElapsedMillis + "ms 처리 시 " + (declarativeEnd - declarativeStart)
+                            + "ms 걸렸습니다.");
         }
     }
 }
