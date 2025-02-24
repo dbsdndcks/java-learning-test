@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.params.provider.ValueSources;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -334,7 +335,7 @@ public class JUnit5Test {
 
             throw new RuntimeException("예외가 발생하지 않았습니다.");
 */
-            Assertions.assertThrows(RuntimeException.class,() -> causeException());
+            assertThrows(RuntimeException.class,() -> causeException());
         }
 
         /**
@@ -385,7 +386,7 @@ public class JUnit5Test {
         @DisplayName("assertDoesNotThrow 메서드로 특정 예외가 발생하지 않는 것을 명시한다")
         void assertDoesNotThrow_메서드로_특정_예외가_발생하지_않는_것을_명시한다() {
             // TODO: `assertDoesNotThrow` 메서드를 사용하여 테스트의 의도를 명확하게 표현해주세요.
-            final var number = Integer.valueOf(0x80000000);
+            assertDoesNotThrow(() -> Integer.valueOf(0x80000000));
         }
     }
 
@@ -408,13 +409,15 @@ public class JUnit5Test {
         @DisplayName("assertAll 메서드로 여러 검증 코드를 한 번에 실행한다")
         void assertAll_메서드로_여러_검증_코드를_한_번에_실행한다() {
             // TODO: `assertAll`을 사용하지 않고 모든 테스트를 통과시키는 것과 `assertAll`를 사용하고 모든 테스트를 통과시키는 것에 차이를 비교해보세요.
-            assertEquals(3, 1 + 2);
-            assertEquals(5, 3 + 2);
-            assertEquals(21, 7 * 3);
-            assertEquals(32, 3 * 7 ^ 5);
-            assertEquals(4, 7 * 3 / 5 + 33 / 21);
-            assertEquals(22, 33 * 3 / 5 + 7 / 2);
-            assertEquals(22, 33 * 3 / 5 + 7 / 2 + 1);
+            assertAll(
+                    () -> assertEquals(3, 1 + 2),
+                    () -> assertEquals(5, 3 + 2),
+                    () -> assertEquals(21, 7 * 3),
+                    () -> assertEquals(32, 3 * 7 ^ 5),
+                    () -> assertEquals(4, 7 * 3 / 5 + 33 / 21),
+                    () -> assertEquals(22, 33 * 3 / 5 + 7 / 2),
+                    () -> assertEquals(22, 33 * 3 / 5 + 7 / 2 + 1)
+            );
         }
     }
 
@@ -443,43 +446,33 @@ public class JUnit5Test {
          * `@ValueSource` 애노테이션의 속성들은 다음과 같이 배열 형태로 입력이 가능합니다.
          * `@ValueSource` 애노테이션의 속성을 배열 형태로 입력해줌으로서, 각 배열의 값마다 각각의 테스트를 수행하도록 구현할 수 있습니다.
          */
-        @Test
+        @ParameterizedTest
+        @ValueSource(ints = {1,2,3,4})
         @DisplayName("ValueSource 애노테이션을 붙여 정수 매개변수를 여러 번 입력받는다")
-        void ValueSource_애노테이션을_붙여_정수_매개변수를_여러_번_입력받는다() {
+        void ValueSource_애노테이션을_붙여_정수_매개변수를_여러_번_입력받는다(int value) {
             // TODO: `@ValueSource`를 사용하지 않고 여러 정수의 범위를 테스트하는 것과, `@ValueSource`를 사용해서 테스트하는 것의 차이를 비교해보세요.
-            assertTrue(1 > 0 && 1 < 10);
-            assertTrue(2 > 0 && 2 < 10);
-            assertTrue(3 > 0 && 3 < 10);
-            assertTrue(4 > 0 && 4 < 10);
+            assertTrue(value > 0 && value < 10);
         }
 
         /**
          * `@ValueSource` 애노테이션은 `ints`와 같은 속성을 통해 정수 형태를 포함한 string, char, long 등의 다양한 타입을 지원합니다.
          */
-        @Test
+        @ParameterizedTest
+        @ValueSource(strings = {"a","b","c"})
         @DisplayName("ValueSource 애노테이션을 붙여 문자열 매개변수를 여러 번 입력받는다")
-        void ValueSource_애노테이션을_붙여_문자열_매개변수를_여러_번_입력받는다() {
+        void ValueSource_애노테이션을_붙여_문자열_매개변수를_여러_번_입력받는다(String value) {
+
             // TODO: `@ValueSource`를 사용하지 않고 여러 문자열의 Length를 테스트하는 것과, `@ValueSource`를 사용해서 테스트하는 것의 차이를 비교해보세요.
-            String value1 = "a";
-            String value2 = "b";
-            String value3 = "c";
-
-            assertEquals(value1.length(), 1);
-            assertEquals(value2.length(), 1);
-            assertEquals(value3.length(), 1);
+            assertEquals(value.length(), 1);
         }
 
-        @Test
+        @ParameterizedTest
+        @ValueSource(strings = {"1","2","3","4","5"})
         @DisplayName("ValueSource 애노테이션을 활용하여 1부터 5까지의 문자열 값을 Integer로 parseInt하는 로직이 예외를 발생시키지 않는 지 검증한다")
-        void ValueSource_애노테이션을_활용하여_1부터_5까지의_문자열_값을_Integer로_변경하는_로직이_예외를_발생시키지_않는_지_검증한다() {
+        void ValueSource_애노테이션을_활용하여_1부터_5까지의_문자열_값을_Integer로_변경하는_로직이_예외를_발생시키지_않는_지_검증한다(String value) {
             // TODO: `@ValueSource`를 사용하지 않고 1~5 까지의 문자열 값을 `Integer`로 `parseInt`하는 로직을 테스트하는 것과, `@ValueSource`를 사용해서 테스트하는 것의 차이를 비교해보세요.
-            assertDoesNotThrow(() -> Integer.parseInt("1"));
-            assertDoesNotThrow(() -> Integer.parseInt("2"));
-            assertDoesNotThrow(() -> Integer.parseInt("3"));
-            assertDoesNotThrow(() -> Integer.parseInt("4"));
-            assertDoesNotThrow(() -> Integer.parseInt("5"));
+            assertDoesNotThrow(() -> Integer.parseInt(value));
         }
-
         /**
          * `@MethodSource` 애노테이션은 메서드 이름을 인자로 받아들이며, 인자에서 호출된 메서드는 테스트 메서드에 전달될 인자를 반환합니다.
          */
@@ -502,24 +495,21 @@ public class JUnit5Test {
         @ParameterizedTest
         @MethodSource("methodSourcesTestArguments")
         @DisplayName("MethodSource 애노테이션을 붙여 Object 매개변수를 여러 번 입력받는다")
-        void MethodSource_애노테이션을_붙여_Object_매개변수를_여러_번_입력받는다() {
+        void MethodSource_애노테이션을_붙여_Object_매개변수를_여러_번_입력받는다(Objects value) {
             // TODO: `MethodSource`를 사용하지 않고 Object 객체들을 직접 선언하여 테스트하는 방식과, `MethodSource`를 사용하여 Object를 입력받아 테스트하는 방식의 차이를 비교해보세요.
-            Object object1 = new Object();
-            Object object2 = new Object();
-            Object object3 = new Object();
-            Object object4 = new Object();
-
-            assertInstanceOf(Object.class, object1);
-            assertInstanceOf(Object.class, object2);
-            assertInstanceOf(Object.class, object3);
-            assertInstanceOf(Object.class, object4);
+            assertInstanceOf(Object.class, value);
         }
 
         /**
          * `Arguments`를 `Stream` 내부에 여러 개 선언해줌으로서, 각 `Arguments`마다 각각의 테스트를 수행하도록 구현할 수 있습니다.
          */
         private static Stream<Arguments> methodSourcesTestArguments() {
-            return Stream.of(Arguments.arguments());
+            return Stream.of(
+                    Arguments.of(new Object()),
+                    Arguments.of(new Object()),
+                    Arguments.of(new Object()),
+                    Arguments.of(new Object())
+                    );
         }
 
         /**
